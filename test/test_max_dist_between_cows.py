@@ -2,7 +2,7 @@ import unittest
 import sys
 
 sys.path.append("D:\\University\\Algo_part_2\\labs_algo_part_2\\src\\")
-from lab_2.max_dist_between_cows import max_dist_between_angry_cows
+from max_dist_between_cows import max_dist_between_angry_cows
 
 
 class TestMaxDistBetweenCows(unittest.TestCase):
