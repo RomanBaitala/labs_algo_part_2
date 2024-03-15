@@ -1,3 +1,3 @@
 @echo off 
 
-python -m unittest -v src/test/test_lab1_lvl3.py
+python -m unittest -v test/test_red_black_priority_queue.py
