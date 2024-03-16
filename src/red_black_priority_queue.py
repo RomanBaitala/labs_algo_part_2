@@ -8,7 +8,7 @@ class Node:
         self.color = color
         self.left = left
         self.right = right
-        self.parent = parent 
+        self.parent = parent
         self.priority = priority
 
 
@@ -17,9 +17,9 @@ class RedBlackTree:
         self.root = None
 
     def left_roatate(self, x):
-        y = x.right 
-        x.right = y.left 
-        y.parent = x.parent 
+        y = x.right
+        x.right = y.left
+        y.parent = x.parent
 
         if y.left is not None:
             y.left.parent = x
@@ -27,31 +27,30 @@ class RedBlackTree:
         if x.parent is None:
             self.root = y
         elif x == x.parent.left:
-            x.parent.left = y 
+            x.parent.left = y
         else:
             x.parent.right = y
 
-        y.left = x 
+        y.left = x
         x.parent = y
 
-
     def right_rotate(self, x):
-        y = x.left 
-        x.left = y.right 
-        y.parent = x.parent 
+        y = x.left
+        x.left = y.right
+        y.parent = x.parent
 
         if y.right is not None:
             y.right.parent = x
 
         if x.parent is None:
-            self.root = y 
+            self.root = y
         elif x == x.parent.left:
-            x.parent.left = y 
+            x.parent.left = y
         else:
             x.parent.right = y
 
         y.right = x
-        x.parent = y 
+        x.parent = y
 
     def insert(self, value, priority):
         z = Node(value, priority)
@@ -61,51 +60,57 @@ class RedBlackTree:
         if self.root is None:
             self.root = Node(value, priority, color=BLACK)
             return
-        
+
         while x is not None:
             y = x
             if priority >= x.priority:
-                x = x.left 
-            else: 
+                x = x.left
+            else:
                 x = x.right
 
-        z.parent = y 
+        z.parent = y
 
         if priority >= y.priority:
-            y.left = z 
-        else: 
-            y.right = z 
+            y.left = z
+        else:
+            y.right = z
 
         self.insert_fix(z)
 
+    def __parent_is_left_child(self, z):
+        if z.parent.parent.right and z.parent.parent.right.color == RED:
+            z.parent.color = BLACK
+            z.parent.parent.right.color = BLACK
+            z.parent.parent.color = RED
+            z = z.parent.parent
+        else:
+            if z == z.parent.right:
+                z = z.parent
+                self.left_roatate(z)
+            z.parent.color = BLACK
+            z.parent.parent.color = RED
+            self.right_rotate(z.parent.parent)
+
+    def __parent_is_right_child(self, z):
+        if z.parent.parent.left and z.parent.parent.left.color == RED:
+            z.parent.parent.left.color = BLACK
+            z.parent.color = BLACK
+            z.parent.parent.color = RED
+            z = z.parent.parent
+        else:
+            if z == z.parent.left:
+                z = z.parent
+                self.right_rotate(z)
+            z.parent.color = BLACK
+            z.parent.parent.color = RED
+            self.left_roatate(z.parent.parent)
+
     def insert_fix(self, z):
         while z.parent and z.parent.color == RED:
-            if z.parent.parent.left == z.parent: 
-                if z.parent.parent.right and z.parent.parent.right.color == RED:
-                    z.parent.color = BLACK
-                    z.parent.parent.right.color = BLACK
-                    z.parent.parent.color = RED 
-                    z = z.parent.parent
-                else: 
-                    if z == z.parent.right:
-                        z = z.parent
-                        self.left_roatate(z)
-                    z.parent.color = BLACK
-                    z.parent.parent.color = RED
-                    self.right_rotate(z.parent.parent)
-            else: 
-                if z.parent.parent.left and z.parent.parent.left.color == RED:
-                    z.parent.parent.left.color = BLACK
-                    z.parent.color = BLACK
-                    z.parent.parent.color = RED
-                    z = z.parent.parent 
-                else:
-                    if z == z.parent.left:
-                        z = z.parent 
-                        self.right_rotate(z)
-                    z.parent.color = BLACK
-                    z.parent.parent.color = RED
-                    self.left_roatate(z.parent.parent)
+            if z.parent.parent.left == z.parent:
+                self.__parent_is_left_child(z)
+            else:
+                self.__parent_is_right_child(z)
             if z == self.root:
                 break
         self.root.color = BLACK
@@ -116,9 +121,9 @@ class RedBlackTree:
         z_color = z.color
 
         if z.left is None:
-            if z.parent.left == z: 
+            if z.parent.left == z:
                 z.parent.left = z.right
-            else: 
+            else:
                 z.parent.right = z.right
             if z.right is not None:
                 z.right.parent = z.parent
@@ -129,7 +134,7 @@ class RedBlackTree:
 
     def delete_fix(self, x):
         while x != self.root and x.color == BLACK:
-            if x == x.parent.left: 
+            if x == x.parent.left:
                 w = x.parent.right
                 if w.color == RED:
                     w.color = BLACK
@@ -145,7 +150,7 @@ class RedBlackTree:
                         self.right_rotate(w)
                         w = x.parent.right
                     else:
-                        w.color = x.parent.color 
+                        w.color = x.parent.color
                         x.parent.parent.color = BLACK
                         w.right = BLACK
                         self.left_roatate(x.parent)
@@ -166,7 +171,7 @@ class RedBlackTree:
                         self.right_rotate(w)
                         w = x.parent.left
                     else:
-                        w.color = x.parent.color 
+                        w.color = x.parent.color
                         x.parent.parent.color = BLACK
                         w.left = BLACK
                         self.left_roatate(x.parent)
@@ -189,4 +194,3 @@ class RedBlackTree:
         print(node.color)
         print(node.priority)
         self.inorder_tree(node.right)
-
