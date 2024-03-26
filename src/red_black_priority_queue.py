@@ -16,7 +16,7 @@ class RedBlackTree:
     def __init__(self):
         self.root = None
 
-    def left_roatate(self, x):
+    def __left_roatate(self, x):
         y = x.right
         x.right = y.left
         y.parent = x.parent
@@ -34,7 +34,7 @@ class RedBlackTree:
         y.left = x
         x.parent = y
 
-    def right_rotate(self, x):
+    def __right_rotate(self, x):
         y = x.left
         x.left = y.right
         y.parent = x.parent
@@ -75,9 +75,9 @@ class RedBlackTree:
         else:
             y.right = z
 
-        self.insert_fix(z)
+        self.__insert_fix(z)
 
-    def __parent_is_left_child(self, z):
+    def __ins_parent_is_left_child(self, z):
         if z.parent.parent.right and z.parent.parent.right.color == RED:
             z.parent.color = BLACK
             z.parent.parent.right.color = BLACK
@@ -86,12 +86,12 @@ class RedBlackTree:
         else:
             if z == z.parent.right:
                 z = z.parent
-                self.left_roatate(z)
+                self.__left_roatate(z)
             z.parent.color = BLACK
             z.parent.parent.color = RED
-            self.right_rotate(z.parent.parent)
+            self.__right_rotate(z.parent.parent)
 
-    def __parent_is_right_child(self, z):
+    def __ins_parent_is_right_child(self, z):
         if z.parent.parent.left and z.parent.parent.left.color == RED:
             z.parent.parent.left.color = BLACK
             z.parent.color = BLACK
@@ -100,23 +100,23 @@ class RedBlackTree:
         else:
             if z == z.parent.left:
                 z = z.parent
-                self.right_rotate(z)
+                self.__right_rotate(z)
             z.parent.color = BLACK
             z.parent.parent.color = RED
-            self.left_roatate(z.parent.parent)
+            self.__left_roatate(z.parent.parent)
 
-    def insert_fix(self, z):
+    def __insert_fix(self, z):
         while z.parent and z.parent.color == RED:
             if z.parent.parent.left == z.parent:
-                self.__parent_is_left_child(z)
+                self.__ins_parent_is_left_child(z)
             else:
-                self.__parent_is_right_child(z)
+                self.__ins_parent_is_right_child(z)
             if z == self.root:
                 break
         self.root.color = BLACK
 
     def delete(self):
-        z = self.search()
+        z = self.__search()
         node_to_be_deleted = z
         z_color = z.color
 
@@ -129,56 +129,62 @@ class RedBlackTree:
                 z.right.parent = z.parent
             z = z.right
         if z_color == BLACK:
-            self.delete_fix(z)
+            self.__delete_fix(z)
         return node_to_be_deleted.priority
+    
+    def __del_currnet_is_left(self, x):
+        w = x.parent.right
+        if w.color == RED:
+            w.color = BLACK
+            x.parent.color = RED
+            self.__left_roatate(x.parent)
+            w = x.parent.right
+            if w.left.color == BLACK and w.right.color == BLACK:
+                w.color = RED
+                x = x.parent
+            elif w.right.color == BLACK:
+                w.left.color = BLACK
+                w.color = RED
+                self.__right_rotate(w)
+                w = x.parent.right
+            else:
+                w.color = x.parent.color
+                x.parent.parent.color = BLACK
+                w.right = BLACK
+                self.__left_roatate(x.parent)
+                self.root = x
 
-    def delete_fix(self, x):
+    def __del_current_is_right(self, x):
+        w = x.parent.left
+        if w.color == RED:
+            w.color = BLACK
+            x.parent.color = RED
+            self.__left_roatate(x.parent)
+            w = x.parent.left
+            if w.right.color == BLACK and w.left.color == BLACK:
+                w.color = RED
+                x = x.parent
+            elif w.left.color == BLACK:
+                w.right.color = BLACK
+                w.color = RED
+                self.__right_rotate(w)
+                w = x.parent.left
+            else:
+                w.color = x.parent.color
+                x.parent.parent.color = BLACK
+                w.left = BLACK
+                self.__left_roatate(x.parent)
+                self.root = x
+
+    def __delete_fix(self, x):
         while x != self.root and x.color == BLACK:
             if x == x.parent.left:
-                w = x.parent.right
-                if w.color == RED:
-                    w.color = BLACK
-                    x.parent.color = RED
-                    self.left_roatate(x.parent)
-                    w = x.parent.right
-                    if w.left.color == BLACK and w.right.color == BLACK:
-                        w.color = RED
-                        x = x.parent
-                    elif w.right.color == BLACK:
-                        w.left.color = BLACK
-                        w.color = RED
-                        self.right_rotate(w)
-                        w = x.parent.right
-                    else:
-                        w.color = x.parent.color
-                        x.parent.parent.color = BLACK
-                        w.right = BLACK
-                        self.left_roatate(x.parent)
-                        self.root = x
+                self.__del_currnet_is_left(x)
             else:
-                w = x.parent.left
-                if w.color == RED:
-                    w.color = BLACK
-                    x.parent.color = RED
-                    self.left_roatate(x.parent)
-                    w = x.parent.left
-                    if w.right.color == BLACK and w.left.color == BLACK:
-                        w.color = RED
-                        x = x.parent
-                    elif w.left.color == BLACK:
-                        w.right.color = BLACK
-                        w.color = RED
-                        self.right_rotate(w)
-                        w = x.parent.left
-                    else:
-                        w.color = x.parent.color
-                        x.parent.parent.color = BLACK
-                        w.left = BLACK
-                        self.left_roatate(x.parent)
-                        self.root = x
+                self.__del_current_is_right(x)
         x.color = BLACK
 
-    def search(self):
+    def __search(self):
         node = self.root
 
         while node.left:

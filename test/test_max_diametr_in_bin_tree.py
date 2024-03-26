@@ -1,9 +1,5 @@
 import unittest
-import sys
-
-sys.path.append("D:\\University\\Algo_part_2\\labs_algo_part_2\\src\\")
-from max_diametr_in_bin_tree import max_tree_diameter
-from max_diametr_in_bin_tree import BinaryTree
+from src.max_diametr_in_bin_tree import max_tree_diameter, BinaryTree
 
 root = BinaryTree(6)
 root.left = BinaryTree(4)

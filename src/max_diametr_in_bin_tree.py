@@ -24,6 +24,7 @@ def tree_diameter(tree, diameter):
     tree_diameter(tree.left, diameter)
     tree_diameter(tree.right, diameter)
 
+
 def max_tree_diameter(tree):
     diameter = [0]
     tree_diameter(tree, diameter)

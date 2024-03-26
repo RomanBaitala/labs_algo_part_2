@@ -1,8 +1,5 @@
 import unittest
-import sys
-
-sys.path.append("D:\\University\\Algo_part_2\\labs_algo_part_2\\src\\")
-from peek_sequence import peek_sequence
+from src.peek_sequence import peek_sequence
 
 
 class TestPeekSequense(unittest.TestCase):
