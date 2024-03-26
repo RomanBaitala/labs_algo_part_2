@@ -23,8 +23,7 @@ def max_dist_between_angry_cows(free_sect, sect_num, ang_cows):
 
     for i in range(1, sect_num - 1):
         if (
-            last_sect_with_cow <= avg_elem_sum + avg_sect_num
-            and avg_elem_sum + avg_sect_num <= free_sect[i]
+                last_sect_with_cow <= avg_elem_sum + avg_sect_num <= free_sect[i]
         ):
             avg_elem_sum += avg_sect_num
             lower_dist = find_lowest_dist(
