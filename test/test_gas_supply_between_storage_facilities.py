@@ -2,7 +2,7 @@
 """
 
 import unittest
-import os 
+import os
 from src.gas_supply_between_storage_facilities import gas_supply_between_cities
 
 cur_path = os.path.dirname(__file__)
@@ -21,7 +21,7 @@ class TestGasSupplyBetweenStorageFacilities(unittest.TestCase):
             cur_path + "\\resources\\input_gas.txt",
             cur_path + "\\resources\\output_gas.txt"
         )
-        
+
         with open(
             cur_path + "\\resources\\output_gas.txt",
             'r',

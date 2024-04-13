@@ -3,6 +3,7 @@ to which we can't transport gas
 """
 
 from typing import List, Dict, Tuple
+from src.red_black_priority_queue import RedBlackTree
 
 
 def dfs(graph: Dict[str, List[str]], start: str) -> list:
@@ -14,13 +15,17 @@ def dfs(graph: Dict[str, List[str]], start: str) -> list:
     Returns:
         list: cities which we can reach from gas storage
     """
-    stack = [start]
+
+    stack = RedBlackTree()
+    stack.insert(start, 1)
     visited = []
     while stack:
-        current = stack.pop()
+        current = stack.delete()
+        if not current:
+            return visited
         visited.append(current)
         for neighbour in graph[current]:
-            stack.append(neighbour)
+            stack.insert(neighbour, 1)
     return visited
 
 
@@ -56,7 +61,7 @@ def gas_supply_between_cities(file_read: str, file_write: str):
     cities, storages, gas_lines = read_file(file_read)
 
     if len(cities) == 0:
-        write_file(file_write, ['-1'])
+        write_file(file_write, ["-1"])
         return
 
     unreachable = []
