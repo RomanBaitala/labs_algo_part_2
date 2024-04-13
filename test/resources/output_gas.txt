@@ -1,0 +1,1 @@
+('stryi', ['lviv', 'morshyn', 'dashava', 'lutsk'])('morshyn', ['stryi', 'lviv'])

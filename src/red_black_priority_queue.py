@@ -116,7 +116,7 @@ class RedBlackTree:
         self.root.color = BLACK
 
     def delete(self):
-        z = self.__search()
+        z = self.search()
         node_to_be_deleted = z
         z_color = z.color
 
@@ -131,6 +131,7 @@ class RedBlackTree:
         if z_color == BLACK:
             self.__delete_fix(z)
         return node_to_be_deleted.priority
+
     
     def __del_currnet_is_left(self, x):
         w = x.parent.right
@@ -184,7 +185,7 @@ class RedBlackTree:
                 self.__del_current_is_right(x)
         x.color = BLACK
 
-    def __search(self):
+    def search(self):
         node = self.root
 
         while node.left:
