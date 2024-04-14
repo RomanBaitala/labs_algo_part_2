@@ -69,9 +69,14 @@ def gas_supply_between_cities(file_read: str, file_write: str):
     graph = {city: [] for city in cities}
     for gas_line in gas_lines:
         source, destination = gas_line
-        graph[source].append(destination)
+        if source in cities and destination in cities:
+            graph[source].append(destination)
+        else:
+            continue
 
     for storage in storages:
+        if storage not in cities:
+            continue
         visited = dfs(graph, storage)
         current_storage_info = compare_gas_supplying(storage, visited, cities)
         if len(current_storage_info[1]) == 0:

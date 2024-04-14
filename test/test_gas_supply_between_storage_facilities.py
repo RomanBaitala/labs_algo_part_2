@@ -54,15 +54,15 @@ class TestGasSupplyBetweenStorageFacilities(unittest.TestCase):
         Test case when there are supply to all cities
         """
         gas_supply_between_cities(
-            cur_path + "\\resources\\input_gas.txt",
-            cur_path + "\\resources\\output_gas.txt"
+            cur_path + "\\resources\\input_gas_empty.txt",
+            cur_path + "\\resources\\output_gas_empty.txt"
         )
 
         with open(
-                cur_path + "\\resources\\output_gas.txt",
+                cur_path + "\\resources\\output_gas_empty.txt",
                 'r',
                 encoding='utf-8'
         ) as file:
-            first_line = file.readline().strip('( )').split(')(')
+            first_line = file.readline().strip('[ ]')
 
-        self.assertEqual(len(first_line), 2)
+        self.assertEqual(int(first_line), -1)
