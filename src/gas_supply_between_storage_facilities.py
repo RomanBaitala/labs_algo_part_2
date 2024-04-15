@@ -3,7 +3,6 @@ to which we can't transport gas
 """
 
 from typing import List, Dict, Tuple
-from src.red_black_priority_queue import RedBlackTree
 
 
 def dfs(graph: Dict[str, List[str]], start: str) -> list:
@@ -16,16 +15,15 @@ def dfs(graph: Dict[str, List[str]], start: str) -> list:
         list: cities which we can reach from gas storage
     """
 
-    stack = RedBlackTree()
-    stack.insert(start, 1)
+    stack = [start]
     visited = []
     while stack:
-        current = stack.delete()
+        current = stack.pop()
         if not current:
             return visited
         visited.append(current)
         for neighbour in graph[current]:
-            stack.insert(neighbour, 1)
+            stack.append(neighbour)
     return visited
 
 
@@ -50,6 +48,22 @@ def compare_gas_supplying(
     return storage, differance
 
 
+def build_graph(cities: list, gas_lines: list, graph: Dict[str, List[str]]):
+    """_summary_
+
+    Args:
+        cities (_type_): _description_
+        gas_lines (_type_): _description_
+        graph (_type_): _description_
+    """
+    for gas_line in gas_lines:
+        source, destination = gas_line
+        if source in cities and destination in cities:
+            graph[source].append(destination)
+        else:
+            continue
+
+
 def gas_supply_between_cities(file_read: str, file_write: str):
     """This function create a graph from read data and uses functions
     dfs, compare_gas_supply to get the result and write it to file
@@ -67,12 +81,7 @@ def gas_supply_between_cities(file_read: str, file_write: str):
     unreachable = []
 
     graph = {city: [] for city in cities}
-    for gas_line in gas_lines:
-        source, destination = gas_line
-        if source in cities and destination in cities:
-            graph[source].append(destination)
-        else:
-            continue
+    build_graph(cities, gas_lines, graph)
 
     for storage in storages:
         if storage not in cities:
