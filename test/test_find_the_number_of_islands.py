@@ -17,11 +17,11 @@ class TestFindTheNuberOfIslands(unittest.TestCase):
         Test function which gives None on the input
         """
         find_islands(
-            cur_path + "\\resourses\\input_island_empty.txt",
-            cur_path + "\\resourses\\output_island_empty.txt",
+            cur_path + "\\resources\\input_island_empty.txt",
+            cur_path + "\\resources\\output_island_empty.txt",
         )
         with open(
-            cur_path + "\\resourses\\output_island_empty.txt",
+            cur_path + "\\resources\\output_island_empty.txt",
             "r",
             encoding="utf-8",
         ) as file:
@@ -33,11 +33,11 @@ class TestFindTheNuberOfIslands(unittest.TestCase):
         Test function which gives matrix 10x10 size on the input
         """
         find_islands(
-            cur_path + "\\resourses\\input_island.txt",
-            cur_path + "\\resourses\\output_island.txt",
+            cur_path + "\\resources\\input_island.txt",
+            cur_path + "\\resources\\output_island.txt",
         )
         with open(
-            cur_path + "\\resourses\\output_island.txt",
+            cur_path + "\\resources\\output_island.txt",
             "r",
             encoding="utf-8",
         ) as file:
@@ -49,11 +49,11 @@ class TestFindTheNuberOfIslands(unittest.TestCase):
         Test function which gives matrix with only "1" elements on the input
         """
         find_islands(
-            cur_path + "\\resourses\\input_island_with_1.txt",
-            cur_path + "\\resourses\\output_island_with_1.txt",
+            cur_path + "\\resources\\input_island_with_1.txt",
+            cur_path + "\\resources\\output_island_with_1.txt",
         )
         with open(
-            cur_path + "\\resourses\\output_island_with_1.txt",
+            cur_path + "\\resources\\output_island_with_1.txt",
             "r",
             encoding="utf-8",
         ) as file:
@@ -65,11 +65,11 @@ class TestFindTheNuberOfIslands(unittest.TestCase):
         Test function which gives matrix with only "1" elements on the input
         """
         find_islands(
-            cur_path + "\\resourses\\input_island_with_0.txt",
-            cur_path + "\\resourses\\output_island_with_0.txt",
+            cur_path + "\\resources\\input_island_with_0.txt",
+            cur_path + "\\resources\\output_island_with_0.txt",
         )
         with open(
-            cur_path + "\\resourses\\output_island_with_0.txt",
+            cur_path + "\\resources\\output_island_with_0.txt",
             "r",
             encoding="utf-8",
         ) as file:

@@ -12,7 +12,7 @@ class TestRedBlackPriorityQueue(unittest.TestCase):
         tree.insert('rtu', 9)
         tree.insert('rtu', 8)
         tree.insert('rtu', 4)
-        self.assertEqual(tree.delete(), 9)
+        self.assertEqual(tree.delete(), 'rtu')
 
 
 if __name__ == "__main__":
