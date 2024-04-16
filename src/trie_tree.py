@@ -36,7 +36,7 @@ class TrieTree:
 
     def find(self, word: str) -> object:
         """_summary_
-
+        Function which finds certain word in tree
         Args:
             word (str): word we want to check 
 
