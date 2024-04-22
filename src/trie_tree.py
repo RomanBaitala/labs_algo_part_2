@@ -2,6 +2,7 @@
 File gets string on input and returns trie tree
 """
 
+
 class TrieNode:
     """_summary_
     class represent node of tire tree
@@ -74,12 +75,12 @@ class TrieTree:
             searched_node.is_key = False
         return searched_node.data
 
-    def __find_cild_words(self, current, words):
+    def __find_child_words(self, current, words):
         if current.is_key:
             words.append(current.data)
 
         for letter in current.children:
-            self.__find_cild_words(current.children[letter], words)
+            self.__find_child_words(current.children[letter], words)
 
     def prefix(self, pref: str) -> list:
         """_summary_
@@ -97,7 +98,7 @@ class TrieTree:
                 return []
             current = current.children[letter]
 
-        self.__find_cild_words(current, words)
+        self.__find_child_words(current, words)
         return words
 
 
