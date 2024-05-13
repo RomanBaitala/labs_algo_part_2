@@ -18,7 +18,7 @@ class TestMaxFlowForFlowerShop(unittest.TestCase):
         Test case with normal data
         """
 
-        result = max_flow('resources/input_max_flow.csv')
+        result = max_flow('test/resources/input_max_flow.csv')
 
         self.assertEqual(result, 20)
 
@@ -27,7 +27,7 @@ class TestMaxFlowForFlowerShop(unittest.TestCase):
         Test case with normal data
         """
 
-        result = max_flow('resources/input_max_flow_multi_graph.csv')
+        result = max_flow('test/resources/input_max_flow_multi_graph.csv')
 
         self.assertEqual(result, 0)
 
@@ -36,7 +36,7 @@ class TestMaxFlowForFlowerShop(unittest.TestCase):
         Test case with normal data
         """
 
-        result = max_flow('resources/input_max_flow_with_1.csv')
+        result = max_flow('test/resources/input_max_flow_with_1.csv')
 
         self.assertEqual(result, 4)
 
@@ -45,6 +45,6 @@ class TestMaxFlowForFlowerShop(unittest.TestCase):
         Test case with normal data
         """
 
-        result = max_flow('resources/input_max_flow_empty.csv')
+        result = max_flow('test/resources/input_max_flow_empty.csv')
 
         self.assertEqual(result, 0)
